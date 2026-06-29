@@ -21,19 +21,13 @@ In the Docker/JupyterLab environment used by this project, that usually means:
 Do not manually extract this tar. Use the preparation script below so the
 validation images are sorted into the folder format expected by the notebook.
 
-The small devkit directory should already exist:
+The small devkit directory is already included in this repository:
 
 ```text
 datasets/ILSVRC2012_devkit_t12/
 ```
 
-If it is missing and you have `ILSVRC2012_devkit_t12.tar.gz`, put that archive
-in `datasets` and extract it from a JupyterLab terminal:
-
-```bash
-cd /home/jovyan/transaxx/datasets
-tar -xzf ILSVRC2012_devkit_t12.tar.gz
-```
+You do not need to upload or extract `ILSVRC2012_devkit_t12.tar.gz`.
 
 ## 2. Create `imagenet_data1`
 
@@ -161,7 +155,7 @@ mul8s_FPGA_ISH5.h
 ## 6. Change the approximate multiplier in the notebook
 
 In `examples/models/imagenet_example.ipynb`, go to the section named
-`8. Run approximate evaluation`.
+`7. Run approximate evaluation`.
 
 Find this line:
 
