@@ -126,6 +126,9 @@ After `imagenet_data1` exists, open:
 examples/models/imagenet_example.ipynb
 ```
 
+Run the first code cell once to install `requirements.txt` into the active
+Jupyter kernel. This avoids terminal installs for packages such as `timm`.
+
 Run the setup cells first. The notebook should print paths similar to:
 
 ```text
