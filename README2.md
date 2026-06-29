@@ -140,6 +140,38 @@ mul8s_FPGA_ISH4.h
 mul8s_FPGA_ISH5.h
 ```
 
+## 6. Change the approximate multiplier in the notebook
+
+In `examples/models/imagenet_example.ipynb`, go to the section named
+`8. Run approximate evaluation`.
+
+Find this line:
+
+```python
+axx_list[0:47] = [{'axx_mult' : 'mul8s_1L2H', 'axx_power' : 0.8871, 'quant_bits' : 8, 'fake_quant' : False}] * 47
+```
+
+Change `axx_mult` to the header name without `.h`. For example:
+
+```python
+axx_list[0:47] = [{'axx_mult' : 'mul8s_FPGA_ISH3', 'axx_power' : 1.0, 'quant_bits' : 8, 'fake_quant' : False}] * 47
+```
+
+Use one of:
+
+```text
+mul8s_FPGA_ISH1
+mul8s_FPGA_ISH2
+mul8s_FPGA_ISH3
+mul8s_FPGA_ISH4
+mul8s_FPGA_ISH5
+```
+
+Also update `axx_power` if you want the reported power estimate to match the
+selected multiplier. The notebook currently uses the same range syntax,
+`axx_list[0:47]`, to approximate the first 47 linear layers; change the range
+if you want to approximate fewer or more layers.
+
 If a notebook or script contains a hard-coded path such as
 `/home/jovyan/transaxx/...`, change it to the actual repository path in your
 JupyterLab environment.
