@@ -76,8 +76,19 @@ Use `--overwrite` only when you intentionally want to rebuild
 
 ## 3. Update notebook paths if your repo is not in `/home/jovyan/transaxx`
 
-In `examples/models/imagenet_example.ipynb`, edit the first setup cell if your
-JupyterLab path is different:
+In `examples/models/imagenet_example.ipynb`, the first setup cell now tries to
+find the repository root automatically. The repository root is the folder that
+directly contains:
+
+```text
+classification/
+pytorch-quantization/
+datasets/
+examples/
+```
+
+If the notebook cannot find that folder, set the `TRANSAXX_PATH` environment
+variable before launching JupyterLab, or edit the first setup cell manually.
 
 ```python
 TRANSAXX_PATH = "/home/jovyan/transaxx"
@@ -86,6 +97,10 @@ VAL_DIR = os.path.join(IMAGENET_PATH, "val")
 CALIB_DIR = os.path.join(IMAGENET_PATH, "train_tiny")
 DEVKIT_ROOT = "/home/jovyan/transaxx/datasets"
 ```
+
+If you see `ModuleNotFoundError: No module named 'classification'`, then
+`TRANSAXX_PATH` is pointing at the wrong folder. It must point to the repo root,
+not to `examples`, `examples/models`, or `datasets`.
 
 For example, if the repo is mounted at `/workspace/Handover`, use:
 
