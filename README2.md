@@ -152,7 +152,47 @@ mul8s_FPGA_ISH4.h
 mul8s_FPGA_ISH5.h
 ```
 
-## 6. Change the approximate multiplier in the notebook
+## 6. Test a different ImageNet dataset
+
+The notebook uses this layout:
+
+```text
+<IMAGENET_PATH>/
+  val/
+  train_tiny/
+```
+
+Both `val` and `train_tiny` must be readable by `torchvision.datasets.ImageFolder`,
+meaning each class has its own subfolder.
+
+To prepare a different validation tar, run the script with explicit input and
+output paths:
+
+```bash
+python datasets/prepare_imagenet_data1.py \
+  --val-tar /path/to/ILSVRC2012_img_val.tar \
+  --output-dir /path/to/my_imagenet_data \
+  --tiny-per-class 10
+```
+
+Then in the first notebook setup cell, point `IMAGENET_PATH` to that output:
+
+```python
+IMAGENET_PATH = "/path/to/my_imagenet_data"
+VAL_DIR = os.path.join(IMAGENET_PATH, "val")
+CALIB_DIR = os.path.join(IMAGENET_PATH, "train_tiny")
+```
+
+If your dataset is already staged in ImageFolder format, skip the preparation
+script and only change `IMAGENET_PATH`. For supervised evaluation, the folder
+names/order must still match the label mapping used by the notebook. The default
+preparation script creates numeric ImageNet devkit ID folders (`1` through
+`1000`), which is what the canonical label-fix cells expect.
+
+For calibration-only runs, `train_tiny` labels are less important, but the folder
+structure must still be valid for `ImageFolder`.
+
+## 7. Change the approximate multiplier in the notebook
 
 In `examples/models/imagenet_example.ipynb`, go to the section named
 `7. Run approximate evaluation`.
